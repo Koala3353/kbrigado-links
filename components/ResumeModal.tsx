@@ -20,7 +20,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ onClose }) => {
         {/* Header Controls */}
         <div className="absolute top-4 right-4 flex gap-2 print:hidden z-10">
           <a
-            href="/BRIGADO-Resume.pdf"
+            href={`${import.meta.env.BASE_URL}BRIGADO-Resume.pdf`}
             download="BRIGADO-Resume.pdf"
             className="p-2 bg-gray-100 hover:bg-indigo-50 text-indigo-600 hover:text-indigo-700 rounded-full transition-colors shadow-sm flex items-center gap-2 px-4 no-underline"
             title="Download PDF Version"
