@@ -14,8 +14,3 @@ export interface UserProfile {
   avatarUrl: string;
   theme: 'dark' | 'light' | 'glass';
 }
-
-export interface AIResponse {
-  suggestedBio?: string;
-  suggestedRole?: string;
-}

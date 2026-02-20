@@ -13,7 +13,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ onClose }) => {
       <div className="bg-white text-gray-900 w-full max-w-5xl h-[85vh] rounded-xl shadow-2xl flex flex-col overflow-hidden relative">
 
         {/* Header Controls */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50 flex-shrink-0">
           <h2 className="text-lg font-semibold text-gray-700">Resume Preview</h2>
           <div className="flex gap-2">
             <a
@@ -23,17 +23,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ onClose }) => {
               title="Download PDF"
             >
               <Download size={16} />
-              <span className="hidden sm:inline">Download</span>
-            </a>
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-white hover:bg-indigo-50 text-gray-600 hover:text-indigo-600 border border-gray-200 rounded-md transition-colors shadow-sm text-sm font-medium flex items-center gap-2 px-3 no-underline"
-              title="Open in New Tab"
-            >
-              <ExternalLink size={16} />
-              <span className="hidden sm:inline">Open New Tab</span>
+              <span className="hidden sm:inline">Download PDF</span>
             </a>
             <button
               onClick={onClose}
@@ -46,11 +36,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ onClose }) => {
         </div>
 
         {/* PDF Viewer */}
-        <div className="flex-1 bg-gray-100 relative">
-          <iframe
+        <div className="flex-1 bg-gray-100 relative h-full">
+          <embed
             src={resumeUrl}
-            className="w-full h-full border-0"
-            title="Resume Preview"
+            type="application/pdf"
+            className="w-full h-full rounded-b-xl"
+            title="Keene Brigado's Resume"
           />
         </div>
       </div>

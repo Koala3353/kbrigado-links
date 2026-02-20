@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import { INITIAL_PROFILE, INITIAL_LINKS } from './constants';
 import { UserProfile, LinkItem } from './types';
 import { LinkCard } from './components/LinkCard';
-import { ProfileEditor } from './components/ProfileEditor';
 import { ResumeModal } from './components/ResumeModal';
 import { Icon } from './components/Icon';
-import { Settings, Plus, Sparkles, CheckCircle2, UserPlus } from 'lucide-react';
+import { Plus, CheckCircle2, UserPlus } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [profile, setProfile] = useState<UserProfile>(INITIAL_PROFILE);
+  const [profile] = useState<UserProfile>(INITIAL_PROFILE);
   const [links, setLinks] = useState<LinkItem[]>(INITIAL_LINKS);
   const [isEditing, setIsEditing] = useState(false);
-  const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showResume, setShowResume] = useState(false);
-
-  const handleProfileSave = (newProfile: UserProfile) => {
-    setProfile(newProfile);
-    setShowProfileEditor(false);
-  };
 
   const deleteLink = (id: string) => {
     if (window.confirm('Are you sure you want to delete this link?')) {
@@ -118,14 +111,6 @@ const App: React.FC = () => {
                   className="w-full h-full rounded-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                 />
               </div>
-              {isEditing && (
-                <button
-                  onClick={() => setShowProfileEditor(true)}
-                  className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white"
-                >
-                  <Settings size={24} />
-                </button>
-              )}
             </div>
           ) : (
             // Spacer if no avatar, to prevent layout jumpiness or just keep spacing nice
@@ -159,13 +144,7 @@ const App: React.FC = () => {
         {/* Edit Controls */}
         {isEditing && (
           <div className="w-full mb-8 flex gap-3 animate-in fade-in zoom-in-95 duration-300">
-            <button
-              onClick={() => setShowProfileEditor(true)}
-              className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-dashed border-white/20 rounded-xl text-sm font-medium transition-colors flex items-center justify-center text-gray-300"
-            >
-              <Sparkles size={16} className="mr-2 text-indigo-400" />
-              AI Profile Editor
-            </button>
+            <div className="flex-1"></div> {/* Spacer to keep Add Link centered or aligned if needed, or just remove */}
             <button
               onClick={addNewLink}
               className="flex-1 py-3 bg-indigo-500/10 hover:bg-indigo-500/20 border border-dashed border-indigo-500/30 rounded-xl text-indigo-300 text-sm font-medium transition-colors flex items-center justify-center"
@@ -173,6 +152,7 @@ const App: React.FC = () => {
               <Plus size={16} className="mr-2" />
               Add Link
             </button>
+            <div className="flex-1"></div>
           </div>
         )}
 
@@ -215,17 +195,15 @@ const App: React.FC = () => {
           <div className="text-gray-600 text-xs tracking-wider uppercase font-medium">
             © {new Date().getFullYear()} {profile.name}
           </div>
+          <button
+            className="mt-4 text-xs text-gray-800 hover:text-gray-600 transition-colors"
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? 'Done Editing' : 'Admin'}
+          </button>
         </footer>
 
       </div>
-
-      {showProfileEditor && (
-        <ProfileEditor
-          profile={profile}
-          onSave={handleProfileSave}
-          onClose={() => setShowProfileEditor(false)}
-        />
-      )}
 
       {showResume && (
         <ResumeModal onClose={() => setShowResume(false)} />
