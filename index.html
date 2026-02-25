@@ -30,10 +30,16 @@
       }
 
       .animated-bg {
-        background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 50%, #000000 100%);
-        background-size: 100% 100%;
-        background-attachment: fixed;
+        background: linear-gradient(-45deg, #0f172a, #1e1b4b, #09090b, #171717);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
         min-height: 100vh;
+      }
+
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
       
       /* Scrollbar styling for a cleaner look */

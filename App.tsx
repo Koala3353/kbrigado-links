@@ -4,7 +4,7 @@ import { UserProfile, LinkItem } from './types';
 import { LinkCard } from './components/LinkCard';
 import { ResumeModal } from './components/ResumeModal';
 import { Icon } from './components/Icon';
-import { Plus, CheckCircle2, UserPlus } from 'lucide-react';
+import { Plus, UserPlus } from 'lucide-react';
 
 const App: React.FC = () => {
   const [profile] = useState<UserProfile>(INITIAL_PROFILE);
@@ -118,11 +118,8 @@ const App: React.FC = () => {
           )}
 
           <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-4xl font-bold tracking-tight text-white mb-3 flex items-center gap-2.5">
+            <h1 className="text-4xl font-bold tracking-tight text-white mb-3 flex items-center justify-center gap-2.5">
               {profile.name}
-              <span className="text-indigo-400" title="Verified">
-                <CheckCircle2 size={20} fill="currentColor" className="text-indigo-400/20" />
-              </span>
             </h1>
             <p className="text-indigo-300/80 text-sm font-semibold tracking-widest uppercase mb-5 bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10">
               {profile.role}
@@ -192,15 +189,9 @@ const App: React.FC = () => {
               </a>
             ))}
           </div>
-          <div className="text-gray-600 text-xs tracking-wider uppercase font-medium">
+          <div className="text-gray-600 text-xs tracking-wider uppercase font-medium mt-6">
             © {new Date().getFullYear()} {profile.name}
           </div>
-          <button
-            className="mt-4 text-xs text-gray-800 hover:text-gray-600 transition-colors"
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            {isEditing ? 'Done Editing' : 'Admin'}
-          </button>
         </footer>
 
       </div>
