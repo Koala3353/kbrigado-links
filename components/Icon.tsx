@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Globe, Linkedin, Mail, Twitter, Instagram, Code, ExternalLink, FileText, Facebook, Send } from 'lucide-react';
+import { Github, Globe, Linkedin, Mail, Twitter, Instagram, Code, ExternalLink, FileText, Facebook, Send, Nfc } from 'lucide-react';
 
 interface IconProps {
   name: string;
@@ -19,6 +19,7 @@ export const Icon: React.FC<IconProps> = ({ name, className, size = 20 }) => {
     case 'file-text': return <FileText className={className} size={size} />;
     case 'facebook': return <Facebook className={className} size={size} />;
     case 'telegram': return <Send className={className} size={size} />;
+    case 'nfc': return <Nfc className={className} size={size} />;
     default: return <ExternalLink className={className} size={size} />;
   }
 };

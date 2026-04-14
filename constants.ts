@@ -10,6 +10,14 @@ export const INITIAL_PROFILE: UserProfile = {
 
 export const INITIAL_LINKS: LinkItem[] = [
   {
+    id: 'kolmi',
+    title: 'Kolmi — NFC Contact Cards',
+    url: 'https://kolmi.vercel.app/',
+    icon: 'nfc',
+    description: 'Get your smart NFC business card today',
+    active: true,
+  },
+  {
     id: 'resume',
     title: 'View Resume',
     url: '#resume',

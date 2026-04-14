@@ -2,7 +2,7 @@ export interface LinkItem {
   id: string;
   title: string;
   url: string;
-  icon: 'linkedin' | 'github' | 'globe' | 'mail' | 'twitter' | 'instagram' | 'code' | 'file-text';
+  icon: 'linkedin' | 'github' | 'globe' | 'mail' | 'twitter' | 'instagram' | 'code' | 'file-text' | 'nfc' | 'facebook' | 'telegram';
   description?: string;
   active: boolean;
 }

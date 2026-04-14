@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkItem } from '../types';
 import { Icon } from './Icon';
-import { ExternalLink, Edit2, Trash2 } from 'lucide-react';
+import { Edit2, Trash2 } from 'lucide-react';
 
 interface LinkCardProps {
   link: LinkItem;
@@ -14,28 +14,30 @@ interface LinkCardProps {
 export const LinkCard: React.FC<LinkCardProps> = ({ link, isEditing, onEdit, onDelete, onAction }) => {
   if (isEditing) {
     return (
-      <div className="glass-panel p-4 rounded-xl mb-4 flex items-center justify-between group">
-        <div className="flex items-center space-x-4 overflow-hidden">
-          <div className="p-2 bg-white/10 rounded-lg">
-            <Icon name={link.icon} className="text-white" />
+      <div className="glass-card p-4 flex items-center justify-between group">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="icon-bubble">
+            <Icon name={link.icon} className="text-slate-300" size={18} />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-white font-medium truncate">{link.title}</h3>
-            <p className="text-white/60 text-xs truncate">{link.url}</p>
+            <h3 className="text-white font-medium truncate text-sm">{link.title}</h3>
+            <p className="text-slate-500 text-xs truncate mt-0.5">{link.url}</p>
           </div>
         </div>
-        <div className="flex space-x-2">
-          <button 
+        <div className="flex gap-1 ml-3 shrink-0">
+          <button
             onClick={() => onEdit(link)}
-            className="p-2 hover:bg-white/10 rounded-full text-white/80 transition-colors"
+            className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors"
+            aria-label="Edit link"
           >
-            <Edit2 size={16} />
+            <Edit2 size={15} />
           </button>
-          <button 
+          <button
             onClick={() => onDelete(link.id)}
-            className="p-2 hover:bg-red-500/20 rounded-full text-red-400 transition-colors"
+            className="p-2 hover:bg-red-500/15 rounded-lg text-slate-500 hover:text-red-400 transition-colors"
+            aria-label="Delete link"
           >
-            <Trash2 size={16} />
+            <Trash2 size={15} />
           </button>
         </div>
       </div>
@@ -51,30 +53,36 @@ export const LinkCard: React.FC<LinkCardProps> = ({ link, isEditing, onEdit, onD
     }
   };
 
+  const isResume = link.icon === 'file-text';
+
   return (
-    <a 
+    <a
       href={link.url}
-      target="_blank" 
+      target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
-      className="block group mb-4 relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+      className="glass-card block p-4 flex items-center justify-between group"
+      aria-label={link.title}
     >
-      <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors z-0"></div>
-      <div className="glass-panel p-4 flex items-center justify-between relative z-10 border border-white/10 group-hover:border-white/30">
-        <div className="flex items-center space-x-4">
-          <div className={`p-3 rounded-xl transition-colors ${link.icon === 'file-text' ? 'bg-indigo-500/20 text-indigo-300 group-hover:bg-indigo-500/40' : 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20 text-white group-hover:from-indigo-500/40 group-hover:to-purple-500/40'}`}>
-            <Icon name={link.icon} className="text-current" />
-          </div>
-          <div>
-            <h3 className="text-white font-semibold text-lg">{link.title}</h3>
-            {link.description && (
-              <p className="text-white/70 text-sm mt-0.5">{link.description}</p>
-            )}
-          </div>
+      <div className="flex items-center gap-4">
+        <div className={`icon-bubble ${isResume ? 'accent' : ''} group-hover:border-white/15 transition-colors`}>
+          <Icon
+            name={link.icon}
+            size={18}
+            className={isResume ? '' : 'text-slate-300 group-hover:text-white transition-colors'}
+          />
         </div>
-        <div className="text-white/30 group-hover:text-white group-hover:translate-x-1 transition-all duration-300">
-          <ExternalLink size={20} />
+        <div>
+          <h3 className="text-white font-semibold text-[15px] leading-snug">{link.title}</h3>
+          {link.description && (
+            <p className="text-slate-500 text-xs mt-0.5 group-hover:text-slate-400 transition-colors">
+              {link.description}
+            </p>
+          )}
         </div>
+      </div>
+      <div className="text-slate-600 group-hover:text-slate-300 group-hover:translate-x-1 transition-all duration-300 ml-3 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
       </div>
     </a>
   );

@@ -61,8 +61,8 @@ const App: React.FC = () => {
       'VERSION:3.0',
       'FN:Keene Xander Y. Brigado',
       'N:Brigado;Keene;Xander Y.;;',
-      'ORG:Klick n Code',
-      'TITLE:Owner & Founder',
+      'ORG:Kolmi',
+      'TITLE:Founder',
       `NOTE:${profile.bio}`,
       'TEL;TYPE=CELL:+639052367965',
       'item1.TEL:09052367965',
@@ -95,67 +95,84 @@ const App: React.FC = () => {
     { name: 'instagram', url: 'https://www.instagram.com/xan.keene/' },
   ];
 
+  // Split featured (Kolmi) from the rest
+  const featuredLink = links.find(l => l.id === 'kolmi');
+  const otherLinks = links.filter(l => l.id !== 'kolmi');
+
   return (
-    <div className="min-h-screen animated-bg text-gray-100 font-sans selection:bg-indigo-500/30 selection:text-white">
+    <div className="animated-bg min-h-screen text-slate-100 font-sans selection:bg-cyan-500/20 selection:text-white">
+      <div className="relative z-10 max-w-[480px] mx-auto px-5 py-20 flex flex-col items-center">
 
-      <div className="max-w-xl mx-auto min-h-screen px-6 py-20 flex flex-col items-center">
+        {/* ── Profile Section ── */}
+        <div className="w-full flex flex-col items-center text-center mb-10">
 
-        {/* Profile Section */}
-        <div className="w-full flex flex-col items-center text-center mb-12 relative z-10">
           {profile.avatarUrl ? (
-            <div className="relative group mb-6">
-              <div className="w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 shadow-2xl ring-1 ring-white/10">
-                <img
-                  src={profile.avatarUrl}
-                  alt={profile.name}
-                  className="w-full h-full rounded-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                />
-              </div>
+            <div className="avatar-ring mb-6 fade-up fade-up-1">
+              <img
+                src={profile.avatarUrl}
+                alt={profile.name}
+                className="w-24 h-24 rounded-full object-cover block"
+              />
             </div>
           ) : (
-            // Spacer if no avatar, to prevent layout jumpiness or just keep spacing nice
-            <div className="h-8"></div>
+            <div className="mb-6 fade-up fade-up-1">
+              {/* Initials avatar fallback */}
+              <div className="avatar-ring">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-2xl font-bold text-cyan-400">
+                  KB
+                </div>
+              </div>
+            </div>
           )}
 
-          <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h1 className="text-4xl font-bold tracking-tight text-white mb-3 flex items-center justify-center gap-2.5">
+          <div className="fade-up fade-up-2">
+            <h1 className="text-3xl font-bold tracking-tight text-white mb-3">
               {profile.name}
             </h1>
-            <p className="text-indigo-300/80 text-sm font-semibold tracking-widest uppercase mb-5 bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10">
-              {profile.role}
-            </p>
-            <p className="text-gray-400 max-w-md leading-relaxed text-base font-light">
+            <div className="flex justify-center mb-4">
+              <span className="role-badge">{profile.role}</span>
+            </div>
+            <p className="text-slate-400 max-w-sm leading-relaxed text-sm font-light">
               {profile.bio}
             </p>
 
             <button
               onClick={handleSaveContact}
-              className="mt-6 flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-full font-medium transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:-translate-y-0.5"
+              className="btn-save mt-6"
+              id="save-contact-btn"
             >
-              <UserPlus size={18} />
+              <UserPlus size={16} />
               <span>Save Contact</span>
             </button>
           </div>
         </div>
 
-        {/* Edit Controls */}
-        {isEditing && (
-          <div className="w-full mb-8 flex gap-3 animate-in fade-in zoom-in-95 duration-300">
-            <div className="flex-1"></div> {/* Spacer to keep Add Link centered or aligned if needed, or just remove */}
-            <button
-              onClick={addNewLink}
-              className="flex-1 py-3 bg-indigo-500/10 hover:bg-indigo-500/20 border border-dashed border-indigo-500/30 rounded-xl text-indigo-300 text-sm font-medium transition-colors flex items-center justify-center"
-            >
-              <Plus size={16} className="mr-2" />
-              Add Link
-            </button>
-            <div className="flex-1"></div>
+        {/* ── Featured: Kolmi Card ── */}
+        {featuredLink && (
+          <div className="w-full mb-4 fade-up fade-up-3">
+            <FeaturedCard link={featuredLink} />
           </div>
         )}
 
-        {/* Links Section */}
-        <div className="w-full space-y-4 relative z-10">
-          {links.map((link) => (
+        {/* ── Divider ── */}
+        <div className="divider w-full fade-up fade-up-3" />
+
+        {/* ── Edit Controls ── */}
+        {isEditing && (
+          <div className="w-full mb-4 flex gap-3 animate-in fade-in zoom-in-95 duration-300">
+            <button
+              onClick={addNewLink}
+              className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-dashed border-white/15 rounded-xl text-slate-400 text-sm font-medium transition-colors flex items-center justify-center gap-2"
+            >
+              <Plus size={15} />
+              Add Link
+            </button>
+          </div>
+        )}
+
+        {/* ── Links Section ── */}
+        <div className="w-full space-y-3 fade-up fade-up-4">
+          {otherLinks.map((link, i) => (
             <LinkCard
               key={link.id}
               link={link}
@@ -166,30 +183,30 @@ const App: React.FC = () => {
             />
           ))}
 
-          {links.length === 0 && (
-            <div className="text-center p-8 border border-dashed border-white/10 rounded-xl text-gray-500 bg-white/5">
+          {otherLinks.length === 0 && !isEditing && (
+            <div className="text-center p-8 border border-dashed border-white/10 rounded-xl text-slate-600 bg-white/3">
               No links yet. Add some to get started!
             </div>
           )}
         </div>
 
-        {/* Footer */}
-        <footer className="mt-16 text-center">
-          <div className="flex justify-center items-center gap-6 mb-4">
+        {/* ── Footer ── */}
+        <footer className="mt-16 w-full flex flex-col items-center gap-5">
+          <div className="flex items-center justify-center gap-7">
             {footerSocials.map((social) => (
               <a
                 key={social.name}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-indigo-400 transition-all duration-300 hover:-translate-y-1"
+                className="footer-social"
                 aria-label={social.name}
               >
-                <Icon name={social.name} size={20} />
+                <Icon name={social.name} size={19} />
               </a>
             ))}
           </div>
-          <div className="text-gray-600 text-xs tracking-wider uppercase font-medium mt-6">
+          <div className="text-slate-600 text-xs tracking-wider uppercase font-medium">
             © {new Date().getFullYear()} {profile.name}
           </div>
         </footer>
@@ -202,5 +219,35 @@ const App: React.FC = () => {
     </div>
   );
 };
+
+/** ── Featured Kolmi card — stands out with cyan tint and NFC badge ── */
+const FeaturedCard: React.FC<{ link: LinkItem }> = ({ link }) => (
+  <a
+    href={link.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="glass-card featured block p-5 flex items-center justify-between group"
+    id="kolmi-featured-card"
+    aria-label="Visit Kolmi – NFC Contact Cards"
+  >
+    <div className="flex items-center gap-4">
+      <div className="icon-bubble accent group-hover:bg-cyan-500/25 transition-colors">
+        <Icon name={link.icon} size={20} />
+      </div>
+      <div>
+        <div className="flex items-center gap-2 mb-0.5">
+          <span className="text-white font-semibold text-base">{link.title}</span>
+          <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/25">
+            Startup
+          </span>
+        </div>
+        <p className="text-slate-400 text-sm">{link.description}</p>
+      </div>
+    </div>
+    <div className="text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all duration-300 ml-3 shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+    </div>
+  </a>
+);
 
 export default App;
