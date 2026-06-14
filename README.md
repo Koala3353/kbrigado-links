@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # Keene's Linkhub
 
 A sleek, premium Linktree alternative built with **Vite**, **React**, and **Tailwind CSS**. It features a modern dark theme, smooth glassmorphism, dynamic animations, and a centralized resume synchronization pipeline.
