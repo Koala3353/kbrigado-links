@@ -61,8 +61,8 @@ const App: React.FC = () => {
       'VERSION:3.0',
       'FN:Keene Xander Y. Brigado',
       'N:Brigado;Keene;Xander Y.;;',
-      'ORG:Kolmi',
-      'TITLE:Founder',
+      'ORG:Klick n Code',
+      'TITLE:Owner & Founder',
       `NOTE:${profile.bio}`,
       'TEL;TYPE=CELL:+639052367965',
       'item1.TEL:09052367965',
@@ -95,9 +95,7 @@ const App: React.FC = () => {
     { name: 'instagram', url: 'https://www.instagram.com/xan.keene/' },
   ];
 
-  // Split featured (Kolmi) from the rest
-  const featuredLink = links.find(l => l.id === 'kolmi');
-  const otherLinks = links.filter(l => l.id !== 'kolmi');
+  // Link setup
 
   return (
     <div className="animated-bg min-h-screen text-slate-100 font-sans selection:bg-cyan-500/20 selection:text-white">
@@ -147,15 +145,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Featured: Kolmi Card ── */}
-        {featuredLink && (
-          <div className="w-full mb-4 fade-up fade-up-3">
-            <FeaturedCard link={featuredLink} />
-          </div>
-        )}
 
-        {/* ── Divider ── */}
-        <div className="divider w-full fade-up fade-up-3" />
 
         {/* ── Edit Controls ── */}
         {isEditing && (
@@ -171,8 +161,8 @@ const App: React.FC = () => {
         )}
 
         {/* ── Links Section ── */}
-        <div className="w-full space-y-3 fade-up fade-up-4">
-          {otherLinks.map((link, i) => (
+        <div className="w-full space-y-3 fade-up fade-up-3">
+          {links.map((link, i) => (
             <LinkCard
               key={link.id}
               link={link}
@@ -183,7 +173,7 @@ const App: React.FC = () => {
             />
           ))}
 
-          {otherLinks.length === 0 && !isEditing && (
+          {links.length === 0 && !isEditing && (
             <div className="text-center p-8 border border-dashed border-white/10 rounded-xl text-slate-600 bg-white/3">
               No links yet. Add some to get started!
             </div>
@@ -219,35 +209,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-/** ── Featured Kolmi card — stands out with cyan tint and NFC badge ── */
-const FeaturedCard: React.FC<{ link: LinkItem }> = ({ link }) => (
-  <a
-    href={link.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="glass-card featured block p-5 flex items-center justify-between group"
-    id="kolmi-featured-card"
-    aria-label="Visit Kolmi – NFC Contact Cards"
-  >
-    <div className="flex items-center gap-4">
-      <div className="icon-bubble accent group-hover:bg-cyan-500/25 transition-colors">
-        <Icon name={link.icon} size={20} />
-      </div>
-      <div>
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className="text-white font-semibold text-base">{link.title}</span>
-          <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/25">
-            Startup
-          </span>
-        </div>
-        <p className="text-slate-400 text-sm">{link.description}</p>
-      </div>
-    </div>
-    <div className="text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all duration-300 ml-3 shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
-    </div>
-  </a>
-);
 
 export default App;
