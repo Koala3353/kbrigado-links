@@ -3,6 +3,8 @@ import { X, Download, ExternalLink } from 'lucide-react';
 
 interface ResumeModalProps {
   onClose: () => void;
+}
+
 export const ResumeModal: React.FC<ResumeModalProps> = ({ onClose }) => {
   const resumeUrl = `${import.meta.env.BASE_URL}BRIGADO-Resume.pdf`;
 
