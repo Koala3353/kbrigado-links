@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/*
+  Design tokens, shared with the portfolio (koala3353.github.io/portfolio).
+  One neutral family (zinc) + one accent (signal orange).
+  Radius system: interactive controls = full pill, surfaces = 16px.
+  Z-index scale: toast 40, dialog 50, intro 60.
+*/
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #f4f4f5;
+  --surface: #fbfbfc;
+  --surface-2: #ececef;
+  --fg: #18181b;
+  --muted: #52525b;
+  --subtle: #71717a;
+  --line: #dcdce1;
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-fg: #fafafa;
+  --accent-soft: rgb(194 65 12 / 0.08);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0b0d;
+  --surface: #131316;
+  --surface-2: #1b1b1f;
+  --fg: #ececee;
+  --muted: #a1a1aa;
+  --subtle: #8a8a93;
+  --line: #27272c;
+  --accent: #f97316;
+  --accent-hover: #fb923c;
+  --accent-fg: #0b0b0d;
+  --accent-soft: rgb(249 115 22 / 0.1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+h1, h2, h3 { letter-spacing: -0.03em; text-wrap: balance; }
+p { text-wrap: pretty; }
+
+::selection { background: var(--accent); color: var(--accent-fg); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Pressable elements confirm the tap. */
+.press { transition: transform 160ms var(--ease-out-strong), background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+.press:active { transform: scale(0.97); }
+
+/* Soft dot grid behind the page, fixed so it never repaints on scroll. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, black 20%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

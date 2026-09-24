@@ -1,16 +1,18 @@
+export type LinkIcon = 'portfolio' | 'linkedin' | 'github' | 'mail';
+export type SocialIcon = 'facebook' | 'telegram' | 'instagram';
+
 export interface LinkItem {
   id: string;
   title: string;
+  description: string;
   url: string;
-  icon: 'linkedin' | 'github' | 'globe' | 'mail' | 'twitter' | 'instagram' | 'code' | 'file-text' | 'nfc' | 'facebook' | 'telegram';
-  description?: string;
-  active: boolean;
+  icon: LinkIcon;
+  /** Value copied by the row's copy button, if it has one. */
+  copy?: string;
 }
 
-export interface UserProfile {
+export interface SocialLink {
   name: string;
-  role: string;
-  bio: string;
-  avatarUrl: string;
-  theme: 'dark' | 'light' | 'glass';
+  url: string;
+  icon: SocialIcon;
 }

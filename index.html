@@ -2,211 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Keene Brigado — Links & Contact</title>
-    <meta name="description" content="Links, contact, and portfolio for Keene Brigado — Management Engineering student, developer, and founder of Kolmi NFC Cards." />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800&display=swap" rel="stylesheet">
-    <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Keene Brigado | Links</title>
+    <meta name="description" content="Résumé, portfolio, and contact links for Keene Xander Brigado, Management Engineering student at Ateneo de Manila University working across code, operations, and AI." />
+    <meta name="theme-color" content="#f4f4f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/kbrigado-links/favicon.svg" />
+    <link rel="apple-touch-icon" href="/kbrigado-links/avatar.jpg" />
 
-      :root {
-        --accent: #06b6d4;        /* cyan-500 */
-        --accent-dim: #0891b2;    /* cyan-600 */
-        --accent-glow: rgba(6,182,212,0.25);
-        --accent-faint: rgba(6,182,212,0.08);
-        --surface: rgba(10, 15, 28, 0.72);
-        --border: rgba(255,255,255,0.07);
-        --border-hover: rgba(6,182,212,0.3);
-        --text-primary: #f1f5f9;
-        --text-muted: rgba(203,213,225,0.6);
-      }
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Keene Brigado | Links" />
+    <meta property="og:description" content="Résumé, portfolio, and contact links in one place." />
+    <meta property="og:url" content="https://koala3353.github.io/kbrigado-links/" />
+    <meta property="og:image" content="https://koala3353.github.io/kbrigado-links/avatar.jpg" />
+    <meta name="twitter:card" content="summary" />
 
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #050c18;
-        color: var(--text-primary);
-        -webkit-font-smoothing: antialiased;
-      }
-
-      /* ── Animated mesh background ── */
-      .animated-bg {
-        position: relative;
-        min-height: 100vh;
-        background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6,182,212,0.12) 0%, transparent 70%),
-                    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99,102,241,0.1) 0%, transparent 60%),
-                    linear-gradient(160deg, #050c18 0%, #080e1e 40%, #07111b 100%);
-        overflow-x: hidden;
-      }
-
-      .animated-bg::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background:
-          radial-gradient(circle at 15% 30%, rgba(6,182,212,0.06) 0%, transparent 45%),
-          radial-gradient(circle at 85% 70%, rgba(139,92,246,0.06) 0%, transparent 45%);
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      /* ── Glass card ── */
-      .glass-card {
-        background: var(--surface);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
-      }
-
-      .glass-card:hover {
-        border-color: var(--border-hover);
-        box-shadow: 0 0 0 1px var(--border-hover), 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
-        transform: translateY(-2px);
-      }
-
-      /* ── Featured card (Kolmi) ── */
-      .glass-card.featured {
-        background: linear-gradient(135deg, rgba(6,182,212,0.12) 0%, rgba(10,15,28,0.85) 60%);
-        border-color: rgba(6,182,212,0.25);
-        box-shadow: 0 0 24px rgba(6,182,212,0.1);
-      }
-
-      .glass-card.featured:hover {
-        background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(10,15,28,0.9) 60%);
-        border-color: rgba(6,182,212,0.5);
-        box-shadow: 0 0 0 1px rgba(6,182,212,0.4), 0 12px 40px rgba(0,0,0,0.45), 0 0 30px rgba(6,182,212,0.2);
-      }
-
-      /* ── Save-contact button ── */
-      .btn-save {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 22px;
-        background: rgba(6,182,212,0.12);
-        border: 1px solid rgba(6,182,212,0.3);
-        border-radius: 100px;
-        color: var(--accent);
-        font-size: 0.875rem;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-        cursor: pointer;
-        transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.2s;
-      }
-
-      .btn-save:hover {
-        background: rgba(6,182,212,0.2);
-        border-color: rgba(6,182,212,0.6);
-        box-shadow: 0 0 16px rgba(6,182,212,0.2);
-        transform: translateY(-1px);
-      }
-
-      /* ── Icon bubble ── */
-      .icon-bubble {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.08);
-        transition: background 0.25s;
-      }
-
-      .icon-bubble.accent {
-        background: rgba(6,182,212,0.15);
-        border-color: rgba(6,182,212,0.25);
-        color: var(--accent);
-      }
-
-      /* ── Avatar ring ── */
-      .avatar-ring {
-        padding: 3px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, rgba(6,182,212,0.5), rgba(139,92,246,0.4));
-        box-shadow: 0 0 24px rgba(6,182,212,0.2);
-      }
-
-      /* ── Role badge ── */
-      .role-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 14px;
-        border-radius: 100px;
-        background: rgba(6,182,212,0.07);
-        border: 1px solid rgba(6,182,212,0.15);
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-
-      /* ── Divider ── */
-      .divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.06) 70%, transparent);
-        margin: 8px 0 24px;
-      }
-
-      /* ── Footer socials ── */
-      .footer-social {
-        opacity: 0.4;
-        transition: opacity 0.2s, color 0.2s, transform 0.2s;
-        color: #94a3b8;
-      }
-      .footer-social:hover { opacity: 1; color: var(--accent); transform: translateY(-2px); }
-
-      /* ── Scrollbar ── */
-      ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
-      ::-webkit-scrollbar-thumb:hover { background: rgba(6,182,212,0.4); }
-
-      /* ── Fade-up animation ── */
-      @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      .fade-up { animation: fadeUp 0.6s ease forwards; }
-      .fade-up-1 { animation-delay: 0.05s; opacity: 0; }
-      .fade-up-2 { animation-delay: 0.15s; opacity: 0; }
-      .fade-up-3 { animation-delay: 0.25s; opacity: 0; }
-      .fade-up-4 { animation-delay: 0.35s; opacity: 0; }
-
-      /* ── Glass panel (legacy, kept for compatibility) ── */
-      .glass-panel {
-        background: var(--surface);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--border);
-        transition: all 0.3s ease;
-      }
-      .glass-panel:hover {
-        border-color: var(--border-hover);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.32.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+    <script>
+      // Resolve the theme before first paint so there is no flash.
+      (function () {
+        try {
+          var pref = localStorage.getItem('theme') || 'system';
+          var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>

@@ -1,13 +1,17 @@
 # Keene's Linkhub
 
-A sleek, premium Linktree alternative built with **Vite**, **React**, and **Tailwind CSS**. It features a modern dark theme, smooth glassmorphism, dynamic animations, and a centralized resume synchronization pipeline.
+A sleek, premium Linktree alternative built with **Vite**, **React 19**, **Tailwind CSS v4**, and **Motion**. It shares its design tokens (zinc + signal orange, Geist, Phosphor icons) with my [portfolio](https://koala33## Features
 
-## Features
+- **Light, dark, and system themes**, resolved before first paint.
+- **Short branded intro** on the first visit of a session. Skipped under `prefers-reduced-motion`.
+- **Save contact**: downloads a `.vcf` card built from `constants.ts`.
+- **Résumé viewer**: inline dialog on desktop, native PDF viewer on phones, plus a direct download.
+- **Share and copy**: Web Share API with a copy-link fallback, and one-tap email copy.
+- **Email signature assets** live in `public/email-sig/`.
 
-- 🎨 **Premium Dark Theme:** Modern color palette featuring charcoal/navy bases with cyan-teal accents and glowing card hover states.
-- 📱 **Responsive Design:** Works flawlessly on desktop and mobile.
-- 📇 **vCard Generation:** Automatically generates and downloads a `.vcf` contact file so visitors can easily save the profile to their phone's contacts.
-- 🔄 **Cross-Repo Resume Sync:** The built-in PDF resume is synchronized automatically with a central repository (`Koala3353/Koala3353`). 
+All personal content (links, contact details, vCard) lives in `constants.ts`.
+
+(`Koala3353/Koala3353`). 
 
 ## Architecture & Automation
 
