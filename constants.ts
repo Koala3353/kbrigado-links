@@ -5,7 +5,7 @@ export const PROFILE = {
   name: 'Keene Xander Brigado',
   shortName: 'Keene Brigado',
   role: 'Management Engineering, Ateneo de Manila',
-  bio: 'I work where code, operations, and AI meet, building systems that hold up as they scale.',
+  bio: 'I help teams rethink how their work gets done, using operations, code, and AI. Consulted for Ritual Matcha Co. and GoRocky.',
   avatar: `${import.meta.env.BASE_URL}avatar.jpg`,
   resume: `${import.meta.env.BASE_URL}BRIGADO-Resume.pdf`,
   pageUrl: 'https://koala3353.github.io/kbrigado-links/',
