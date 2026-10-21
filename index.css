@@ -1,99 +1,186 @@
 @import "tailwindcss";
 
 /*
-  Design tokens, shared with the portfolio (koala3353.github.io/portfolio).
-  One neutral family (zinc) + one accent (signal orange).
-  Radius system: interactive controls = full pill, surfaces = 16px.
+  Keene's desk, small edition. Shares its world with the portfolio (koala3353.github.io/portfolio):
+  a night-blue wall lit by a desk lamp, paper things on the desk, inked outlines, lamp gold and matcha.
+  Dark = the desk at night. Light = the same desk in daylight.
+  Paper surfaces stay paper in both themes; only the wall and the text on it change.
   Z-index scale: toast 40, dialog 50, intro 60.
 */
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --bg: #f4f4f5;
-  --surface: #fbfbfc;
-  --surface-2: #ececef;
-  --fg: #18181b;
-  --muted: #52525b;
-  --subtle: #71717a;
-  --line: #dcdce1;
-  --accent: #c2410c;
-  --accent-hover: #9a3412;
-  --accent-fg: #fafafa;
-  --accent-soft: rgb(194 65 12 / 0.08);
+  /* the wall */
+  --wall: #cdd6f1;
+  --wall-low: #b5c1e6;
+  --on-wall: #1b1726;
+  --on-wall-muted: #46405c;
+  --glow: rgb(255 207 122 / 0.45);
+  --bulb-off: #e6e1ef;
+  /* things on the desk (theme-independent) */
+  --paper: #f6eedc;
+  --paper-2: #efe3c8;
+  --ink: #1b1726;
+  --ink-soft: #5b5446;
+  --lamp: #ffcf7a;
+  --lamp-deep: #e8a93a;
+  --matcha: #7fb069;
+  --matcha-deep: #4e7a3d;
+  --blue: #3b6fd6;
+  --rule: rgb(59 111 214 / 0.16);
+  --margin: rgb(217 83 79 / 0.45);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #0b0b0d;
-  --surface: #131316;
-  --surface-2: #1b1b1f;
-  --fg: #ececee;
-  --muted: #a1a1aa;
-  --subtle: #8a8a93;
-  --line: #27272c;
-  --accent: #f97316;
-  --accent-hover: #fb923c;
-  --accent-fg: #0b0b0d;
-  --accent-soft: rgb(249 115 22 / 0.1);
+  --wall: #232a52;
+  --wall-low: #1b2140;
+  --on-wall: #f3ead8;
+  --on-wall-muted: #c4c0d8;
+  --glow: rgb(255 207 122 / 0.2);
+  --bulb-off: #4a5080;
   color-scheme: dark;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-subtle: var(--subtle);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-fg: var(--accent-fg);
-  --color-accent-soft: var(--accent-soft);
+  --color-wall: var(--wall);
+  --color-on-wall: var(--on-wall);
+  --color-on-wall-muted: var(--on-wall-muted);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-lamp: var(--lamp);
+  --color-matcha: var(--matcha);
+  --color-matcha-deep: var(--matcha-deep);
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --font-display: "Fredoka Variable", "Geist Variable", ui-rounded, sans-serif;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  min-height: 100dvh;
+  color: var(--on-wall);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 200ms ease, color 200ms ease;
+  background:
+    radial-gradient(70% 45% at 12% 4%, var(--glow), transparent 70%),
+    linear-gradient(to bottom, var(--wall) 55%, var(--wall-low));
+  background-attachment: fixed;
+  transition: color 200ms ease;
 }
 
-h1, h2, h3 { letter-spacing: -0.03em; text-wrap: balance; }
+h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
-::selection { background: var(--accent); color: var(--accent-fg); }
+::selection { background: var(--lamp); color: var(--ink); }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid var(--lamp);
   outline-offset: 3px;
 }
 
-/* Pressable elements confirm the tap. */
-.press { transition: transform 160ms var(--ease-out-strong), background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
-.press:active { transform: scale(0.97); }
+/* ── Things on the desk ── */
 
-/* Soft dot grid behind the page, fixed so it never repaints on scroll. */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, black 20%, transparent 75%);
+/* Paper with an inked edge and a hard cartoon shadow. */
+@utility paper {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  box-shadow: 0 4px 0 var(--ink);
 }
+
+/* Ruled notebook paper with a red margin line. */
+@utility ruled {
+  background:
+    linear-gradient(to right, transparent 2.6rem, var(--margin) 2.6rem, var(--margin) calc(2.6rem + 1.5px), transparent calc(2.6rem + 1.5px)),
+    repeating-linear-gradient(to bottom, transparent 0 1.6rem, var(--rule) 1.6rem calc(1.6rem + 1px)),
+    var(--paper);
+}
+
+/* Chunky, tactile buttons: they sit on an ink shadow and press down into it. */
+@utility chunky {
+  border: 2px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  transition: transform 140ms var(--ease-out-strong), box-shadow 140ms var(--ease-out-strong), background-color 150ms ease;
+  &:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink); }
+  &:active { transform: translateY(3px); box-shadow: 0 0 0 var(--ink); }
+}
+
+/* Round paper sticker buttons for the toolbar and socials. */
+@utility sticker {
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.font-display { font-family: var(--font-display); }
+
+/* Index cards sit a little crooked, then straighten when you reach for them. */
+.card-tilt {
+  rotate: var(--tilt, 0deg);
+  transition: rotate 260ms var(--ease-spring), transform 200ms var(--ease-out-strong), box-shadow 200ms var(--ease-out-strong);
+}
+.card-tilt:hover, .card-tilt:focus-within {
+  rotate: 0deg;
+  transform: translateY(-3px);
+  box-shadow: 0 7px 0 var(--ink);
+}
+.card-tilt:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink); }
+
+/* A strip of paper tape. */
+.tape {
+  position: absolute;
+  width: 4.5rem;
+  height: 1.25rem;
+  background: rgb(255 226 122 / 0.8);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+}
+
+/* The status light next to "open to internships". */
+.lamp-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--lamp);
+  box-shadow: 0 0 0 2px var(--ink), 0 0 12px var(--lamp);
+  animation: lamp-pulse 2.4s ease-in-out infinite;
+}
+@keyframes lamp-pulse { 50% { box-shadow: 0 0 0 2px var(--ink), 0 0 3px var(--lamp); } }
+
+/* String lights along the top of the wall: lit at night, plain glass by day. */
+.bulb { fill: var(--bulb-off); }
+[data-theme="dark"] .bulb { fill: var(--c); filter: drop-shadow(0 0 4px var(--c)); }
+
+/* Kobi blinks now and then. */
+.kobi-eyes { transform-box: fill-box; transform-origin: center; animation: kobi-blink 5.5s infinite; }
+@keyframes kobi-blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+
+/* ── Intro: the K draws itself, then the curtain lifts ── */
+.intro-mark svg { display: block; width: 100%; height: auto; overflow: visible; }
+.intro-mark .b-tile { transform-origin: 256px 256px; animation: intro-pop 500ms var(--ease-spring) both; }
+.intro-mark .b-k1, .intro-mark .b-k2, .intro-mark .b-k3 { stroke-dasharray: 1; stroke-dashoffset: 1; animation: intro-draw 340ms cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+.intro-mark .b-k1 { animation-delay: 250ms; }
+.intro-mark .b-k2 { animation-delay: 440ms; }
+.intro-mark .b-k3 { animation-delay: 590ms; }
+.intro-mark .b-spark { transform: scale(0); animation: intro-spark 480ms var(--ease-spring) 860ms forwards; }
+@keyframes intro-pop { from { transform: scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes intro-draw { to { stroke-dashoffset: 0; } }
+@keyframes intro-spark { 0% { transform: scale(0); } 60% { transform: scale(1.5); } 100% { transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

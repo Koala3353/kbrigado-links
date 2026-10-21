@@ -4,8 +4,9 @@ import { LinkItem, SocialLink } from './types';
 export const PROFILE = {
   name: 'Keene Xander Brigado',
   shortName: 'Keene Brigado',
-  role: 'Management Engineering, Ateneo de Manila',
-  bio: 'I help teams rethink how their work gets done, using operations, code, and AI. Consulted for Ritual Matcha Co. and GoRocky.',
+  role: 'Management Engineering · Ateneo de Manila',
+  status: 'Open to internships in tech, consulting, and FMCG',
+  bio: "I figure out how a business actually runs, then build the systems that fix it. Right now that's business systems at Ritual Matcha Co., a matcha supplier for 500+ cafés.",
   avatar: `${import.meta.env.BASE_URL}avatar.jpg`,
   resume: `${import.meta.env.BASE_URL}BRIGADO-Resume.pdf`,
   pageUrl: 'https://koala3353.github.io/kbrigado-links/',
@@ -14,8 +15,8 @@ export const PROFILE = {
 export const CONTACT = {
   email: 'brigadokeene@gmail.com',
   phone: '+639052367965',
-  org: 'Klick n Code',
-  title: 'Owner & Founder',
+  org: 'Ritual Matcha Co.',
+  title: 'Business Systems Consultant',
   city: 'San Juan',
   country: 'Philippines',
   linkedin: 'https://www.linkedin.com/in/keene-brigado/',
@@ -27,9 +28,9 @@ export const CONTACT = {
 };
 
 export const LINKS: LinkItem[] = [
-  { id: 'portfolio', title: 'Portfolio', description: 'Projects and case studies', url: CONTACT.portfolio, icon: 'portfolio' },
-  { id: 'linkedin', title: 'LinkedIn', description: 'Connect professionally', url: CONTACT.linkedin, icon: 'linkedin' },
-  { id: 'github', title: 'GitHub', description: 'Code and open-source work', url: CONTACT.github, icon: 'github' },
+  { id: 'portfolio', title: 'Portfolio', description: 'Projects, work, and wins', url: CONTACT.portfolio, icon: 'portfolio' },
+  { id: 'linkedin', title: 'LinkedIn', description: 'Experience and references', url: CONTACT.linkedin, icon: 'linkedin' },
+  { id: 'github', title: 'GitHub', description: 'Source code for my projects', url: CONTACT.github, icon: 'github' },
   { id: 'email', title: 'Email', description: CONTACT.email, url: `mailto:${CONTACT.email}`, icon: 'mail', copy: CONTACT.email },
 ];
 

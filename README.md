@@ -1,9 +1,11 @@
 # Keene's Linkhub
 
-A sleek, premium Linktree alternative built with **Vite**, **React 19**, **Tailwind CSS v4**, and **Motion**. It shares its design tokens (zinc + signal orange, Geist, Phosphor icons) with my [portfolio](https://koala33## Features
+My link-in-bio page, built with **Vite**, **React 19**, **Tailwind CSS v4**, and **Motion**. It lives in the same world as my [portfolio](https://koala3353.github.io/portfolio/): a night-blue wall lit by a desk lamp, paper things with inked outlines, lamp gold and matcha, the inked K mark, and Kobi the koala. Light mode is the same desk in daylight.
+
+## Features
 
 - **Light, dark, and system themes**, resolved before first paint.
-- **Short branded intro** on the first visit of a session. Skipped under `prefers-reduced-motion`.
+- **Short branded intro** on the first visit of a session: the K mark draws itself. Skipped under `prefers-reduced-motion`.
 - **Save contact**: downloads a `.vcf` card built from `constants.ts`.
 - **Résumé viewer**: inline dialog on desktop, native PDF viewer on phones, plus a direct download.
 - **Share and copy**: Web Share API with a copy-link fallback, and one-tap email copy.

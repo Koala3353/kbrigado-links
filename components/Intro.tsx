@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { MARK_SVG } from './markSvg';
 
-const EASE = [0.23, 1, 0.32, 1] as const;
-const HOLD_MS = 900;
+const HOLD_MS = 1350;
 
 interface IntroProps {
   onDone: () => void;
 }
 
-// Short branded loader: monogram, a filling bar, then the curtain lifts.
+// Short branded intro, same as the portfolio's: the K draws itself, the spark lights, the curtain lifts.
 export const Intro: React.FC<IntroProps> = ({ onDone }) => {
   const reduce = useReducedMotion();
 
@@ -19,29 +19,13 @@ export const Intro: React.FC<IntroProps> = ({ onDone }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-60 flex items-center justify-center bg-bg"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-[radial-gradient(60%_55%_at_32%_28%,rgb(255_207_122/0.16),transparent_70%),radial-gradient(90%_80%_at_60%_40%,#2a3263,#1b2140_75%)]"
       exit={{ clipPath: 'inset(0 0 100% 0)' }}
       transition={{ duration: 0.55, ease: [0.77, 0, 0.175, 1] }}
+      onClick={onDone}
       aria-hidden="true"
     >
-      <div className="flex flex-col items-center gap-5">
-        <motion.span
-          className="font-mono text-2xl font-semibold tracking-tight text-fg"
-          initial={{ opacity: 0, filter: 'blur(6px)', transform: 'translateY(6px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)', transform: 'translateY(0px)' }}
-          transition={{ duration: 0.45, ease: EASE }}
-        >
-          KB<span className="text-accent">.</span>
-        </motion.span>
-        <div className="h-[2px] w-24 overflow-hidden rounded-full bg-line">
-          <motion.div
-            className="h-full w-full origin-left bg-accent"
-            initial={{ transform: 'scaleX(0)' }}
-            animate={{ transform: 'scaleX(1)' }}
-            transition={{ duration: HOLD_MS / 1000 - 0.1, ease: [0.65, 0, 0.35, 1] }}
-          />
-        </div>
-      </div>
+      <div className="intro-mark w-28 drop-shadow-[0_18px_40px_rgb(8_10_25/0.55)]" dangerouslySetInnerHTML={{ __html: MARK_SVG }} />
     </motion.div>
   );
 };

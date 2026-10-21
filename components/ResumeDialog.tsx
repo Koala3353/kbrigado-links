@@ -33,32 +33,32 @@ export const ResumeDialog: React.FC<ResumeDialogProps> = ({ onClose }) => {
       exit={{ opacity: 0, transition: { duration: 0.15 } }}
       transition={{ duration: 0.2 }}
     >
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-[#0e1230]/60 backdrop-blur-sm" onClick={onClose} />
       <motion.div
         role="dialog"
         aria-modal="true"
         aria-labelledby="resume-title"
-        className="relative flex h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl"
+        className="paper relative flex h-[88dvh] w-full max-w-4xl flex-col overflow-hidden"
         initial={{ opacity: 0, transform: 'translateY(12px) scale(0.97)' }}
         animate={{ opacity: 1, transform: 'translateY(0px) scale(1)' }}
         exit={{ opacity: 0, transform: 'translateY(6px) scale(0.98)', transition: { duration: 0.15 } }}
         transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-          <h2 id="resume-title" className="text-sm font-semibold">Résumé</h2>
+        <div className="flex items-center justify-between gap-3 border-b-2 border-ink px-4 py-3">
+          <h2 id="resume-title" className="font-display text-lg font-semibold">Résumé</h2>
           <div className="flex items-center gap-2">
             <a
               href={PROFILE.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className="press hidden items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-sm font-medium text-muted hover:text-fg sm:flex"
+              className="chunky hidden items-center gap-1.5 rounded-full bg-paper px-3 py-1.5 text-sm font-semibold sm:flex"
             >
               <ArrowSquareOut size={16} weight="bold" /> New tab
             </a>
             <a
               href={PROFILE.resume}
               download="Keene-Brigado-Resume.pdf"
-              className="press flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-accent-fg hover:bg-accent-hover"
+              className="chunky flex items-center gap-1.5 rounded-full bg-matcha px-3 py-1.5 text-sm font-semibold"
             >
               <DownloadSimple size={16} weight="bold" /> Download
             </a>
@@ -66,14 +66,14 @@ export const ResumeDialog: React.FC<ResumeDialogProps> = ({ onClose }) => {
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="press grid size-8 place-items-center rounded-full text-muted hover:bg-surface-2 hover:text-fg"
+              className="chunky sticker size-8"
               aria-label="Close résumé"
             >
               <X size={18} weight="bold" />
             </button>
           </div>
         </div>
-        <iframe src={PROFILE.resume} title="Keene Brigado's résumé" className="h-full w-full flex-1 bg-surface-2" />
+        <iframe src={PROFILE.resume} title="Keene Brigado's résumé" className="h-full w-full flex-1 bg-paper-2" />
       </motion.div>
     </motion.div>
   );

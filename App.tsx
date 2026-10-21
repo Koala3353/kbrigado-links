@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'motion/react';
 import {
   DownloadSimple,
+  Eye,
   FacebookLogo,
-  FileText,
   InstagramLogo,
   ShareNetwork,
   TelegramLogo,
@@ -16,6 +16,7 @@ import { LinkRow } from './components/LinkRow';
 import { ResumeDialog } from './components/ResumeDialog';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Toast } from './components/Toast';
+import { KobiPeek, Mark, StringLights } from './components/Desk';
 
 const SOCIAL_ICONS: Record<SocialIcon, React.ElementType> = {
   facebook: FacebookLogo,
@@ -24,6 +25,9 @@ const SOCIAL_ICONS: Record<SocialIcon, React.ElementType> = {
 };
 
 const INTRO_KEY = 'intro-seen';
+
+/** Resting tilt of each link card, in degrees, so the stack looks hand-placed. */
+const TILTS = [-0.8, 0.6, -0.4, 0.7];
 
 function introAlreadySeen(): boolean {
   try {
@@ -119,27 +123,23 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className="backdrop" aria-hidden="true" />
+      <StringLights />
 
       <AnimatePresence>{showIntro && <Intro onDone={finishIntro} />}</AnimatePresence>
 
       <motion.main
-        className="relative mx-auto flex min-h-[100dvh] w-full max-w-[460px] flex-col px-4 pb-10 pt-6 sm:pt-10"
+        className="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-[440px] flex-col px-5 pb-10 pt-12 sm:pt-16"
         variants={container}
         initial={reduce ? false : 'hidden'}
         animate={revealed ? 'show' : 'hidden'}
       >
         <motion.header variants={item} className="flex items-center justify-between">
-          <span className="font-mono text-sm font-semibold tracking-tight">
-            KB<span className="text-accent">.</span>
-          </span>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={share}
-              className="press grid size-10 place-items-center rounded-full border border-line bg-surface text-muted hover:text-fg"
-              aria-label="Share this page"
-            >
+          <a href={CONTACT.portfolio} className="flex items-center gap-2.5" aria-label="Keene Brigado's portfolio">
+            <Mark className="size-10 transition-transform duration-300 hover:-rotate-6" />
+            <span className="font-mono text-xs uppercase tracking-[0.14em] text-on-wall-muted">Keene&apos;s links</span>
+          </a>
+          <div className="flex items-center gap-2.5">
+            <button type="button" onClick={share} className="chunky sticker size-10" aria-label="Share this page">
               <ShareNetwork size={18} weight="bold" />
             </button>
             <ThemeToggle />
@@ -147,21 +147,28 @@ const App: React.FC = () => {
         </motion.header>
 
         <section className="mt-10 flex flex-col gap-5" aria-label="Profile">
-          <motion.div variants={item} className="flex items-center gap-4">
-            <img
-              src={PROFILE.avatar}
-              alt={PROFILE.name}
-              width={80}
-              height={80}
-              className="size-20 shrink-0 rounded-full object-cover ring-1 ring-line"
-            />
+          <motion.div variants={item} className="flex items-center gap-5">
+            {/* a polaroid taped to the wall */}
+            <div className="relative shrink-0 -rotate-3 border-2 border-ink bg-white p-1.5 pb-5 shadow-[0_4px_0_var(--ink)]">
+              <span className="tape -top-2.5 left-1/2 -translate-x-1/2 -rotate-6" aria-hidden="true" />
+              <img src={PROFILE.avatar} alt={PROFILE.name} width={84} height={84} className="size-[84px] object-cover" />
+            </div>
             <div className="min-w-0">
-              <h1 className="text-2xl font-semibold leading-tight">{PROFILE.shortName}</h1>
-              <p className="mt-1 text-sm text-muted">{PROFILE.role}</p>
+              <h1 className="font-display text-[2.1rem] font-semibold leading-[0.95] tracking-[-0.01em]">
+                {PROFILE.shortName}
+              </h1>
+              <p className="mt-2 font-mono text-[0.7rem] uppercase leading-snug tracking-[0.1em] text-on-wall-muted">
+                {PROFILE.role}
+              </p>
             </div>
           </motion.div>
 
-          <motion.p variants={item} className="text-[15px] leading-relaxed text-muted">
+          <motion.p variants={item} className="inline-flex w-fit items-center gap-2.5 rounded-full border-2 border-ink bg-paper px-3.5 py-1.5 text-[13px] font-medium text-ink">
+            <span className="lamp-dot" aria-hidden="true" />
+            {PROFILE.status}
+          </motion.p>
+
+          <motion.p variants={item} className="text-[15.5px] leading-relaxed text-on-wall-muted">
             {PROFILE.bio}
           </motion.p>
 
@@ -169,42 +176,40 @@ const App: React.FC = () => {
             <button
               type="button"
               onClick={saveContact}
-              className="press inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-hover"
+              className="chunky inline-flex items-center gap-2 rounded-full bg-lamp px-5 py-2.5 text-[15px] font-semibold text-ink"
             >
               <UserPlus size={18} weight="bold" />
-              Save contact
+              Save my contact
             </button>
           </motion.div>
         </section>
 
+        {/* the résumé: a sheet of ruled notebook paper */}
         <motion.section
           variants={item}
-          className="mt-8 rounded-2xl border border-line bg-surface p-4"
+          className="paper ruled relative mt-9 rotate-[0.6deg] py-4 pl-14 pr-4"
           aria-labelledby="resume-heading"
         >
-          <div className="flex items-start gap-4">
-            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
-              <FileText size={20} weight="duotone" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <h2 id="resume-heading" className="text-[15px] font-medium leading-snug">Résumé</h2>
-              <p className="text-sm text-subtle">Education, experience, and skills</p>
-            </div>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <span className="tape -top-2.5 right-6 rotate-[5deg]" aria-hidden="true" />
+          <h2 id="resume-heading" className="font-display text-[1.35rem] font-semibold leading-tight">
+            Résumé
+          </h2>
+          <p className="text-sm text-ink-soft">One page: school, work, and wins.</p>
+          <div className="mt-3.5 flex flex-wrap gap-2.5">
             <a
               href={PROFILE.resume}
               target="_blank"
               rel="noopener noreferrer"
               onClick={openResume}
-              className="press flex items-center justify-center rounded-full border border-line bg-bg px-4 py-2 text-sm font-medium hover:border-subtle"
+              className="chunky inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold"
             >
-              View
+              <Eye size={16} weight="bold" />
+              Read it
             </a>
             <a
               href={PROFILE.resume}
               download="Keene-Brigado-Resume.pdf"
-              className="press flex items-center justify-center gap-1.5 rounded-full border border-line bg-bg px-4 py-2 text-sm font-medium hover:border-subtle"
+              className="chunky inline-flex items-center gap-1.5 rounded-full bg-matcha px-4 py-2 text-sm font-semibold"
             >
               <DownloadSimple size={16} weight="bold" />
               Download
@@ -212,18 +217,24 @@ const App: React.FC = () => {
           </div>
         </motion.section>
 
-        <motion.ul
-          variants={item}
-          className="mt-3 divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface"
-          aria-label="Links"
-        >
-          {LINKS.map((link) => (
-            <LinkRow key={link.id} link={link} onCopy={(v) => copy(v, 'Email copied')} />
-          ))}
-        </motion.ul>
+        {/* links: a stack of index cards, with Kobi peeking over the top one */}
+        <motion.div variants={item} className="relative mt-[4.5rem]">
+          <p
+            className="font-display absolute -top-[3.4rem] right-[6.6rem] rounded-2xl rounded-br-sm border-2 border-ink bg-paper px-3 py-1 text-sm font-medium text-ink"
+            aria-hidden="true"
+          >
+            Pick a card
+          </p>
+          <KobiPeek className="pointer-events-none absolute -top-[3.3rem] right-4 z-10 w-[5.5rem]" />
+          <ul className="flex flex-col gap-3.5" aria-label="Links">
+            {LINKS.map((link, i) => (
+              <LinkRow key={link.id} link={link} tilt={TILTS[i % TILTS.length]} onCopy={(v) => copy(v, 'Email copied')} />
+            ))}
+          </ul>
+        </motion.div>
 
-        <motion.footer variants={item} className="mt-auto flex flex-col items-center gap-4 pt-12">
-          <div className="flex items-center gap-1">
+        <motion.footer variants={item} className="mt-auto flex flex-col items-center gap-4 pt-14">
+          <div className="flex items-center gap-3">
             {SOCIALS.map((s) => {
               const Icon = SOCIAL_ICONS[s.icon];
               return (
@@ -232,7 +243,7 @@ const App: React.FC = () => {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="press grid size-11 place-items-center rounded-full text-subtle hover:bg-surface hover:text-fg"
+                  className="chunky sticker size-11"
                   aria-label={`${s.name} (opens in a new tab)`}
                 >
                   <Icon size={20} weight="bold" />
@@ -240,9 +251,9 @@ const App: React.FC = () => {
               );
             })}
           </div>
-          <p className="text-xs text-subtle">
+          <p className="text-xs text-on-wall-muted">
             © {new Date().getFullYear()} {PROFILE.name} ·{' '}
-            <a href={`mailto:${CONTACT.email}`} className="underline-offset-4 hover:text-fg hover:underline">
+            <a href={`mailto:${CONTACT.email}`} className="underline underline-offset-4 hover:text-on-wall">
               Say hi
             </a>
           </p>

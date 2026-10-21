@@ -43,7 +43,7 @@ export const ThemeToggle: React.FC = () => {
     <button
       type="button"
       onClick={() => setPref(next)}
-      className="press grid size-10 place-items-center rounded-full border border-line bg-surface text-muted hover:text-fg"
+      className="chunky sticker size-10"
       aria-label={`${LABEL[pref]}. Switch to ${LABEL[next].toLowerCase()}`}
       title={LABEL[pref]}
     >
